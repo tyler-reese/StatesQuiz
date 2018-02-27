@@ -1,7 +1,6 @@
 package com.example.android.statesquiz;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +20,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
-import static java.lang.Thread.sleep;
 
 public class StateQuestionActivity extends AppCompatActivity {
     // Logging tag
@@ -177,8 +173,8 @@ public class StateQuestionActivity extends AppCompatActivity {
         String[] strArray = in.split(" ");
         StringBuilder out = new StringBuilder();
         for (String s : strArray) {
-            String cap = s.substring(0, 1).toUpperCase() + s.substring(1);
-            out.append(cap + " ");
+            String cap = s.substring(0, 1).toUpperCase() + s.substring(1) + " ";
+            out.append(cap);
         }
 
         return out.toString();
@@ -196,8 +192,8 @@ public class StateQuestionActivity extends AppCompatActivity {
         String[] strArray = in.split(" ");
         StringBuilder out = new StringBuilder();
         for (String s : strArray) {
-            String cap = s.substring(0, 1).toLowerCase() + s.substring(1);
-            out.append(cap + " ");
+            String cap = s.substring(0, 1).toLowerCase() + s.substring(1) + " ";
+            out.append(cap);
         }
 
         return out.toString();
@@ -325,8 +321,8 @@ public class StateQuestionActivity extends AppCompatActivity {
             stateAnswer3.setText(toUpperCase(answers[2]));
             stateAnswer4.setText(toUpperCase(answers[3]));
 
-            String msg = "#" + (pos + 1);
-            questionNumber.setText(msg);
+            String questionNumberMsg = "#" + (pos + 1);
+            questionNumber.setText(questionNumberMsg);
         }
     }
 
@@ -357,17 +353,22 @@ public class StateQuestionActivity extends AppCompatActivity {
         }
 
         // check the answer
+        String statusMsg;
         if (stateText.equals(toLowerCase(answer))) {
+            statusMsg = "Correct!";
             prompt.setTextColor(Color.rgb(0, 255, 0));
-            prompt.setText("Correct!");
+            prompt.setText(statusMsg);
             delay = 750;
             score++;
         } else {
+            statusMsg = "Incorrect.\nThis is " + toUpperCase(answer);
             prompt.setTextColor(Color.rgb(255, 0, 0));
-            prompt.setText("Incorrect.\nThis is " + toUpperCase(answer));
+            prompt.setText(statusMsg);
             delay = 2000; // make the delay a little longer to allow reading the correct answer
         }
-        scoreTextView.setText("Score: " + score + "/" + quizLength);
+
+        String scoreMsg = "Score: " + score + "/" + quizLength;
+        scoreTextView.setText(scoreMsg);
 
         if (++pos < quizLength) {
             loadQuestionData();

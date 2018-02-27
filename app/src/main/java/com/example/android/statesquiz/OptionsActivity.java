@@ -37,12 +37,17 @@ public class OptionsActivity extends AppCompatActivity implements AdapterView.On
             return;
         }
         String item = parent.getItemAtPosition(pos).toString();
-        if (item.equals("10"))
-            quizLength = 10;
-        else if (item.equals("25"))
-            quizLength = 25;
-        else if (item.equals("50"))
-            quizLength = 50;
+        switch (item) {
+            case "25":
+                quizLength = 25;
+                break;
+            case "50":
+                quizLength = 50;
+                break;
+            default:
+                quizLength = 10;
+                break;
+        }
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
