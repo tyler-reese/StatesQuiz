@@ -13,11 +13,6 @@
     <string name="type_in_the_state">Type in the state</string>
     <string name="todo">TODO</string>
     <string name="start">Start</string>
-    <string name="todo">TODO</string>
-    <string name="todo">TODO</string>
-    <string name="todo">TODO</string>
-    <string name="todo">TODO</string>
-    <string name="todo">TODO</string>
     <string-array name="difficulty_array">
         <item>10</item>
         <item>25</item>
