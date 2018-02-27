@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">States Quiz</string>
+    <string name="usa_state_quiz">US States Quiz</string>
+    <string name="num_questions">Number of questions</string>
+    <string name="score">Score</string>
+    <string name="questionNumber">Question Number</string>
+    <string name="state_image">State image</string>
+    <string name="next">Next</string>
+    <string name="reset">reset</string>
+    <string name="done">Done</string>
+    <string name="hard_mode">Hard Mode</string>
+    <string name="type_your_answers">Type your answers</string>
+    <string name="type_in_the_state">Type in the state</string>
+    <string name="todo">TODO</string>
+    <string name="start">Start</string>
+    <string name="todo">TODO</string>
+    <string name="todo">TODO</string>
+    <string name="todo">TODO</string>
+    <string name="todo">TODO</string>
+    <string name="todo">TODO</string>
+    <string-array name="difficulty_array">
+        <item>10</item>
+        <item>25</item>
+        <item>50</item>
+    </string-array>
+</resources>
