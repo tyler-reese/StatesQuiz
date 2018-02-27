@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 quizLength = data.getIntExtra("quizLength", 10);
-                mode = data.getIntExtra("mode", 10);
+                mode = data.getIntExtra("mode", 0);
             }
         }
     }
