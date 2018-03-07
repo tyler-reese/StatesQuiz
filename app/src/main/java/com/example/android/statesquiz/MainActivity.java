@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String QUIZ_LENGTH = "com.example.android.statesquiz.QUIZ_LENGTH";
-    public static final String MODE = "com.example.android.statesquiz.MODE";
-    int quizLength = 10;
-    int mode = 0;
+    // class variables, so they are accessible from the other side of the Intent
+    public static final String EXTRA_QUIZ_LENGTH = "com.example.android.statesquiz.QUIZ_LENGTH";
+    public static final String EXTRA_MODE = "com.example.android.statesquiz.MODE";
+
+    private int quizLength = 10;
+    private int mode = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,15 +21,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void startQuiz(View view) {
         Intent intent = new Intent(this, StateQuestionActivity.class);
-        intent.putExtra(QUIZ_LENGTH, quizLength);
-        intent.putExtra(MODE, mode);
+        intent.putExtra(EXTRA_QUIZ_LENGTH, quizLength);
+        intent.putExtra(EXTRA_MODE, mode);
         startActivity(intent);
     }
 
     public void setOptions(View view) {
         Intent intent = new Intent(this, OptionsActivity.class);
-        intent.putExtra(QUIZ_LENGTH, quizLength);
-        intent.putExtra(MODE, mode);
+        intent.putExtra(EXTRA_QUIZ_LENGTH, quizLength);
+        intent.putExtra(EXTRA_MODE, mode);
         startActivityForResult(intent, 1);
     }
 

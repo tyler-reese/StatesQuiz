@@ -23,27 +23,27 @@ import java.util.Random;
 
 public class StateQuestionActivity extends AppCompatActivity {
     // Logging tag
-    private static final String TAG = "StateQuestionActivity";
+    private final String TAG = "StateQuestionActivity";
 
     // keys used for savedInstanceState
-    private static final String QUIZ_LENGTH = "quizLength";
-    private static final String MODE = "mode";
-    private static final String SCORE = "score";
-    private static final String POS = "pos";
-    private static final String STATES = "states";
-    private static final String ANSWERS = "answers";
-    private static final String ANSWER = "answer";
-    private static final String FINISHED = "finished";
-    private static final String IMG_RESOURCE = "imgResource";
+    private final String QUIZ_LENGTH_KEY = "quizLength";
+    private final String MODE = "mode";
+    private final String SCORE = "score";
+    private final String POS = "pos";
+    private final String STATES = "states";
+    private final String ANSWERS = "answers";
+    private final String ANSWER = "answer";
+    private final String FINISHED = "finished";
+    private final String IMG_RESOURCE = "imgResource";
 
     // quiz data
-    int quizLength = 10;
-    int mode = 0;
-    int score = 0;
-    int pos = 0;
-    int imgResource = 0;
-    String answer = "";
-    boolean finished = false;
+    private int quizLength = 10;
+    private int mode = 0;
+    private int score = 0;
+    private int pos = 0;
+    private int imgResource = 0;
+    private String answer = "";
+    private boolean finished = false;
     private String[] states = {
             "alabama", "alaska", "arkansas", "arizona", "california",
             "colorado", "connecticut", "delaware", "florida", "georgia",
@@ -107,8 +107,8 @@ public class StateQuestionActivity extends AppCompatActivity {
 
             // get the data passed from MainActivity
             Intent intent = getIntent();
-            quizLength = intent.getIntExtra(MainActivity.QUIZ_LENGTH, 10);
-            mode = intent.getIntExtra(MainActivity.MODE, 0);
+            quizLength = intent.getIntExtra(MainActivity.EXTRA_QUIZ_LENGTH, 10);
+            mode = intent.getIntExtra(MainActivity.EXTRA_MODE, 0);
 
             // create the shuffled list of states
             List<String> strList = Arrays.asList(states);
@@ -127,7 +127,7 @@ public class StateQuestionActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         // Save custom values into the bundle
-        savedInstanceState.putInt(QUIZ_LENGTH, quizLength);
+        savedInstanceState.putInt(QUIZ_LENGTH_KEY, quizLength);
         savedInstanceState.putInt(MODE, mode);
         savedInstanceState.putInt(SCORE, score);
         savedInstanceState.putInt(POS, pos);
@@ -147,7 +147,7 @@ public class StateQuestionActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
 
         // Restore state members from saved instance
-        quizLength = savedInstanceState.getInt(QUIZ_LENGTH);
+        quizLength = savedInstanceState.getInt(QUIZ_LENGTH_KEY);
         mode = savedInstanceState.getInt(MODE);
         score = savedInstanceState.getInt(SCORE);
         pos = savedInstanceState.getInt(POS);
@@ -167,32 +167,16 @@ public class StateQuestionActivity extends AppCompatActivity {
      * @param in is the string to convert
      * @return converted string
      */
-    private String toUpperCase(String in) {
+    private String capitalize(String in) {
         if (in.length() == 0)
             return "";
+        
         String[] strArray = in.split(" ");
+
+        // capitalize each word in the String array
         StringBuilder out = new StringBuilder();
         for (String s : strArray) {
             String cap = s.substring(0, 1).toUpperCase() + s.substring(1) + " ";
-            out.append(cap);
-        }
-
-        return out.toString();
-    }
-
-    /**
-     * Convert each word of the string to lower case.
-     *
-     * @param in is the string to convert
-     * @return converted string
-     */
-    private String toLowerCase(String in) {
-        if (in.length() == 0)
-            return "";
-        String[] strArray = in.split(" ");
-        StringBuilder out = new StringBuilder();
-        for (String s : strArray) {
-            String cap = s.substring(0, 1).toLowerCase() + s.substring(1) + " ";
             out.append(cap);
         }
 
@@ -316,10 +300,10 @@ public class StateQuestionActivity extends AppCompatActivity {
             textAnswer.setText("");
 
             // set the answers in the radio buttons
-            stateAnswer1.setText(toUpperCase(answers[0]));
-            stateAnswer2.setText(toUpperCase(answers[1]));
-            stateAnswer3.setText(toUpperCase(answers[2]));
-            stateAnswer4.setText(toUpperCase(answers[3]));
+            stateAnswer1.setText(capitalize(answers[0]));
+            stateAnswer2.setText(capitalize(answers[1]));
+            stateAnswer3.setText(capitalize(answers[2]));
+            stateAnswer4.setText(capitalize(answers[3]));
 
             String questionNumberMsg = "#" + (pos + 1);
             questionNumber.setText(questionNumberMsg);
@@ -347,21 +331,21 @@ public class StateQuestionActivity extends AppCompatActivity {
             // determine the selected text
             int selection = checkId1 == -1 ? checkId2 : checkId1;
             RadioButton selectedRadioButton = findViewById(selection);
-            stateText = toLowerCase((String) selectedRadioButton.getText());
+            stateText = ((String) selectedRadioButton.getText()).toLowerCase();
         } else {
-            stateText = toLowerCase(textAnswer.getText().toString());
+            stateText = (textAnswer.getText().toString()).toLowerCase();
         }
 
         // check the answer
         String statusMsg;
-        if (stateText.equals(toLowerCase(answer))) {
+        if (stateText.equals(answer.toLowerCase())) {
             statusMsg = "Correct!";
             prompt.setTextColor(Color.rgb(0, 255, 0));
             prompt.setText(statusMsg);
             delay = 750;
             score++;
         } else {
-            statusMsg = "Incorrect.\nThis is " + toUpperCase(answer);
+            statusMsg = "Incorrect.\nThis is " + capitalize(answer);
             prompt.setTextColor(Color.rgb(255, 0, 0));
             prompt.setText(statusMsg);
             delay = 2000; // make the delay a little longer to allow reading the correct answer

@@ -9,9 +9,10 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 
 public class OptionsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    int quizLength = 10;
-    int mode = 0;
-    boolean first = true;
+    private int quizLength = 10;
+    private int mode = 0;
+    private boolean first = true;
+    private CheckBox modeCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +21,14 @@ public class OptionsActivity extends AppCompatActivity implements AdapterView.On
 
         // get the data passed from MainActivity
         Intent intent = getIntent();
-        quizLength = intent.getIntExtra(MainActivity.QUIZ_LENGTH, 10);
-        mode = intent.getIntExtra(MainActivity.MODE, 0);
+        quizLength = intent.getIntExtra(MainActivity.EXTRA_QUIZ_LENGTH, 10);
+        mode = intent.getIntExtra(MainActivity.EXTRA_MODE, 0);
 
         Spinner spinner = findViewById(R.id.spinnerDifficulty);
         spinner.setOnItemSelectedListener(this);
         spinner.setSelection(quizLength == 10 ? 0 : quizLength == 25 ? 1 : 2);
 
-        CheckBox modeCheckBox = findViewById(R.id.hardMode);
+        modeCheckBox = findViewById(R.id.hardMode);
         modeCheckBox.setChecked(mode == 1);
     }
 
@@ -58,7 +59,6 @@ public class OptionsActivity extends AppCompatActivity implements AdapterView.On
      * Send the option data back to MainActivity.
      */
     public void optionsDone(View view) {
-        CheckBox modeCheckBox = findViewById(R.id.hardMode);
         int mode = modeCheckBox.isChecked() ? 1 : 0;
         Intent intent = new Intent();
         intent.putExtra("quizLength", quizLength);
